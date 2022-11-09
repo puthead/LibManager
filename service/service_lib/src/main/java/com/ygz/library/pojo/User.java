@@ -2,30 +2,31 @@ package com.ygz.library.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
 @ApiModel(description = "user")
 @TableName("user")
-public class User {
-	
+public class User implements Serializable {
+
+
 	private static final long serialVersionUID = 1L;
 	
-	@ApiModelProperty(value = "用户id")
-	@TableField("u_id")
+
 	private int uId;
 
-	@ApiModelProperty(value = "用户名")
-	@TableField("u_name")
+
 	private String uName;
 
-	@ApiModelProperty(value = "密码")
-	@TableField("u_Password")
+
 	private String uPassword;
 
 
