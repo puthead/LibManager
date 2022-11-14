@@ -8,7 +8,7 @@
 		<module>service</module>
 		<module>service/service_user</module>
 		<module>Eureka</module>
-<!--		<module>Gateway</module>-->
+		<module>Gateway</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
