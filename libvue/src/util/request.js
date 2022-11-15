@@ -1,50 +1,49 @@
-import axios from 'axios';
-import qs from 'qs'
-import store from 'store/index'       //已经设置路径别名，否则相对路径引用
-import { Message } from 'element-ui'  //引入element-ui提示信息插件..
+import axios from 'axios'
 
-const   service=axios.create({
-    timeout:60000,                                   //超时时间
-    baseURL:"http://localhost:9000/",             // 我们在请求接口的时候就不同写前面 会自动我们补全
-    transformRequest: data => qs.stringify(data)    //post请求参数处理,防止post请求跨域
-})
-// http request 拦截器
-service.interceptors.request.use(config=>{
-    //如果存在jwt，则将jwt添加到每次请求之中..
-    if(store.state.jwt){
-        config.params = {
-            ...config.params,
-            jwt:store.state.jwt
-        }
-    }
-    return config
-},err=>{
-    return err
-})
-// http response 拦截器
-service.interceptors.response.use(response=>{
-    //接收返回数据..
-    const res = response.data
-    //判断返回数据是否存在状态code和错误提示信息..
-    if(!res.code || !res.msg){
-        return showMessage('响应数据格式错误')
-    }
-    //判断状态code是否为指定数值(200)..
-    if(res.code != 200){
-        return showMessage(res.msg)
-    }
-    return res
-},err=>{
-    return showMessage(err.message)
+const baseurl='/api'
+// 创建一个 axios 实例
+const service = axios.create({
+    baseURL: baseurl, // 所有的请求地址前缀部分
+    timeout: 60000, // 请求超时时间毫秒
+    withCredentials: true, // 异步请求携带cookie
+    headers: {
+        // 设置后端需要的传参类型
+        'Content-Type': 'application/json',
+        'token': 'your token',
+        'X-Requested-With': 'XMLHttpRequest',
+    },
 })
 
-//封装错误提示信息..
-function showMessage(msg){
-    Message({
-        message: msg,         //错误提示信息
-        type: 'error',        //显示类型
-        duration: 3 * 1000    //展示时间
-    })
-    return Promise.reject()
-}
-export default service;
+// 添加请求拦截器
+service.interceptors.request.use(
+    function (config) {
+        // 在发送请求之前做些什么
+        return config
+    },
+    function (error) {
+        // 对请求错误做些什么
+        console.log(error)
+        return Promise.reject(error)
+    }
+)
+
+// 添加响应拦截器
+service.interceptors.response.use(
+    function (response) {
+        console.log(response)
+        // 2xx 范围内的状态码都会触发该函数。
+        // 对响应数据做点什么
+        // dataAxios 是 axios 返回数据中的 data
+        const dataAxios = response.data
+        // 这个状态码是和后端约定的
+        const code = dataAxios.reset
+        return dataAxios
+    },
+    function (error) {
+        // 超出 2xx 范围的状态码都会触发该函数。
+        // 对响应错误做点什么
+        console.log(error)
+        return Promise.reject(error)
+    }
+)
+export default service
