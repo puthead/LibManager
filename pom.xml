@@ -7,6 +7,7 @@
 		<module>model</module>
 		<module>service</module>
 		<module>service/service_user</module>
+		<module>service/service_book</module>
 		<module>LibWeb</module>
 		<module>Eureka</module>
 		<module>Gateway</module>

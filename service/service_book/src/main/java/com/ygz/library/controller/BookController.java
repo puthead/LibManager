@@ -1,28 +1,27 @@
 package com.ygz.library.controller;
 
-import com.ygz.library.pojo.User;
-import com.ygz.library.service.UserService;
+import com.ygz.library.pojo.Book;
+import com.ygz.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/Book")
+public class BookController {
 
 
 
     @Autowired
-    private UserService userService;
+    private BookService bookService;
 
     //全查
     @GetMapping("queryAll")
-    public List<User> queryAll(){
-        List<User> list = userService.list();
+    public List<Book> queryAll(){
+        List<Book> list = bookService.list();
         return list;
     }
 
@@ -33,14 +32,14 @@ public class UserController {
 
     @RequestMapping("delete")
     public int delById(int uId){
-        int k = userService.delete(uId);
+        int k = bookService.delete(uId);
         System.out.println("k :  "+k);
         return k;
     }
 
     @RequestMapping("queryObject")
-    public User queryObject(int uId){
-        User u = userService.queryObject(uId);
+    public Book queryObject(int uId){
+        Book u = bookService.queryObject(uId);
         System.out.println(u);
         return u;
     }
@@ -52,9 +51,9 @@ public class UserController {
         int size = 3;
         int currentPage = page;
         int offset = (page - 1) * size;
-        int count = userService.queryCount();
+        int count = bookService.queryCount();
         int totalPage = (count + size - 1) / size;
-        List<User> list = userService.queryPage(offset, size);
+        List<Book> list = bookService.queryPage(offset, size);
         // System.out.println(list);
         Map<String, Object> map = new HashMap<>();
         map.put("list", list);
