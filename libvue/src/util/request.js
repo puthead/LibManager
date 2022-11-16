@@ -9,7 +9,7 @@ const service = axios.create({
     headers: {
         // 设置后端需要的传参类型
         'Content-Type': 'application/json',
-        'token': 'your token',
+        'token': localStorage.getItem('Authorization'),
         'X-Requested-With': 'XMLHttpRequest',
     },
 })
@@ -17,6 +17,9 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(
     function (config) {
+        if (localStorage.getItem('Authorization')) {
+            config.headers.Authorization = localStorage.getItem('Authorization');
+        }
         // 在发送请求之前做些什么
         return config
     },
