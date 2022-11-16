@@ -27,8 +27,9 @@ export default {
       })
     },
     logout:function (){
-      localStorage.removeItem('Authorization')
+      localStorage.removeItem('token')
       router.push("/login")
+      console.log(localStorage.getItem('token'))
     }
   },
   created() {

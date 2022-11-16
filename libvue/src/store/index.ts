@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+    Authorization: localStorage.getItem('token') ? localStorage.getItem('token') : ''
   },
   getters: {
   },
@@ -10,7 +10,7 @@ export default createStore({
     // 修改token，并将token存入localStorage
     changeLogin (state, user) {
       state.Authorization = user.Authorization;
-      localStorage.setItem('Authorization', user.Authorization);
+      localStorage.setItem('token', user.Authorization);
     }
   },
   actions: {
