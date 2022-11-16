@@ -1,6 +1,6 @@
 <template>
   <div id="userAll">
-    <el-button type="primary" @click="select">{{ name }}</el-button>
+    <el-button type="primary" @click="logout">{{ name }}</el-button>
     <el-table :data="userList" style="width: 100%">
       <el-table-column prop="uid" label="uid" width="180" />
       <el-table-column prop="uname" label="uname" width="180" />
@@ -11,10 +11,11 @@
 
 <script>
 import {getData} from "../../api/user";
+import router from "@/router";
 export default {
   data(){
     return {
-      name: "查询",
+      name: "logout",
       userList:[]
     }
   },
@@ -24,6 +25,10 @@ export default {
         console.log("ok")
         this.userList=res
       })
+    },
+    logout:function (){
+      localStorage.removeItem('Authorization')
+      router.push("/login")
     }
   },
   created() {
