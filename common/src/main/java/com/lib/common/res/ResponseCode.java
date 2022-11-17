@@ -1,4 +1,4 @@
-package com.ygz.util;
+package com.lib.common.res;
 
 public class ResponseCode {
 
