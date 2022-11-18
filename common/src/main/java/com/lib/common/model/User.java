@@ -1,6 +1,5 @@
 package com.lib.common.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -24,16 +23,6 @@ public class User implements Serializable {
 
 
 	private String uPassword;
-
-	@TableField(exist = false)
-	private Long loginTime ;
-
-	/**
-	 * 令牌过期时间
-	 * */
-	@TableField(exist = false)
-	private Long expireTime ;
-
 
 }
 
