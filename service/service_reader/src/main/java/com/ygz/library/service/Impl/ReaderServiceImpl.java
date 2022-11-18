@@ -89,10 +89,13 @@ public class ReaderServiceImpl extends ServiceImpl<ReaderMapper,Reader> implemen
     @Override
     public List<Reader> queryObject(Reader obj) {           //通过对象查找  暂时无法使用
         Map<String, Object> map = new HashMap<>();
-        map.put("r_id",obj.getRId());
-        map.put("r_name",obj.getRName());
-        map.put("r_sex",obj.getRSex());
-        map.put("r_phone",obj.getRPhone());
+        map.put("id",obj.getId());
+        map.put("name",obj.getName());
+        map.put("sex",obj.getSex());
+        map.put("phone",obj.getPhone());
+        map.put("department",obj.getDepartment());
+        map.put("register_date",obj.getRegisterDate());
+        map.put("lendable_time",obj.getLendableTime());
         System.out.println("-------------------------");
         System.out.println(map);
         return mapper.selectByMap(map);

@@ -10,6 +10,6 @@ import java.sql.SQLException;
 @Mapper
 public interface ReaderMapper extends BaseMapper<Reader> {
 
-    @Select("select * from user where r_id = #{rId}")
+    @Select("select * from user where id = #{Id}")
     Reader queryObject(int id)throws SQLException;
 }
