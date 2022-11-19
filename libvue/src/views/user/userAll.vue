@@ -22,6 +22,10 @@ export default {
   methods:{
     select:function () {
       getData().then((res)=>{
+        if (res.code === 600){
+          localStorage.removeItem('token')
+          router.push("/login")
+        }
         console.log("ok")
         this.userList=res.data
       })

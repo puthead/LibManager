@@ -19,7 +19,7 @@ export function login(uName,uPassword) {
     return request({
         url:'user/login',
         method:'post',
-        params:{
+        data:{
             uname:uName,
             upassword:uPassword
         }

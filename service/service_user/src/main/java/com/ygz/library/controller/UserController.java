@@ -30,17 +30,21 @@ public class UserController {
     //全查
     @GetMapping("queryAll")
     public ResponseEntity queryAll(@RequestHeader Map<String, String> headers){
-        System.out.println(headers.get("token"));
+        String str= redisUtil.isExistKey(headers.get("token"));
+        log.debug("status",str);
+        if (str == null){
+            return ResponseEntity.success(600);
+        }
+
         List<User> list = userService.list();
         return ResponseEntity.success(200,list);
     }
 
    @PostMapping("login")
-   public ResponseEntity login(String uname,String upassword){
-        log.debug("user:{},{}",uname,upassword);
+   public ResponseEntity login(@RequestBody User user){
+        log.debug("user:",user);
         String key="pc-"+ UUID.randomUUID().toString().replace("-","");
-        Boolean flag=userService.getUserByUName(uname,upassword);
-        User user=new User().setUName(uname);
+        Boolean flag=userService.getUserByUName(user.getUName(),user.getUPassword());
         if (flag) {
             redisUtil.AddRedis(key, user);
             return ResponseEntity.success(200,key);

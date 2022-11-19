@@ -30,6 +30,7 @@ export default {
         console.log(res)
         if (res.code === 200) {
           _this.userToken = res.data;
+          localStorage.setItem('token', _this.userToken);
           // 将用户token保存到vuex中
           _this.changeLogin({Authorization: _this.userToken});
           _this.$router.push('/home');
