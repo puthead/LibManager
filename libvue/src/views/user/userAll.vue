@@ -23,7 +23,7 @@ export default {
     select:function () {
       getData().then((res)=>{
         console.log("ok")
-        this.userList=res
+        this.userList=res.data
       })
     },
     logout:function (){

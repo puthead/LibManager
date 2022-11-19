@@ -3,11 +3,11 @@ package com.ygz.library.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lib.common.model.User;
 import com.ygz.library.mapper.UserMapper;
-import com.ygz.library.pojo.User;
 import com.ygz.library.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,7 @@ import java.util.Map;
 
 @Service
 @Repository
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
     @Autowired
     private UserMapper mapper;
@@ -96,5 +97,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         System.out.println("-------------------------");
         System.out.println(map);
         return mapper.selectByMap(map);
+    }
+
+    @Override
+    public Boolean getUserByUName(String uName,String uPassword) {
+        QueryWrapper queryWrapper =new QueryWrapper();
+        queryWrapper.eq("u_name",uName);
+        queryWrapper.eq("u_password",uPassword);
+        Long count=mapper.selectCount(queryWrapper);
+        System.out.println(count);
+        if (count == 1L){
+            return true;
+        }
+        return false;
     }
 }

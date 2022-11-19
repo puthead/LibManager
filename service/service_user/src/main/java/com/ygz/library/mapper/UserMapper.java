@@ -1,7 +1,7 @@
 package com.ygz.library.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ygz.library.pojo.User;
+import com.lib.common.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

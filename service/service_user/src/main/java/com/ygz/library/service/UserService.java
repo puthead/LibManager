@@ -1,8 +1,7 @@
 package com.ygz.library.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ygz.library.pojo.User;
-import org.springframework.stereotype.Component;
+import com.lib.common.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +27,6 @@ public interface UserService extends IService<User> {
     List<User> querySearchPage(String search, int offset, int size);
 
     List<User> queryObject(User obj);
+
+    Boolean getUserByUName(String uName,String uPassword);
 }

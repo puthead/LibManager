@@ -15,3 +15,13 @@ export function getData(){
         // }
     })
 }
+export function login(uName,uPassword) {
+    return request({
+        url:'user/login',
+        method:'post',
+        params:{
+            uname:uName,
+            upassword:uPassword
+        }
+    })
+}

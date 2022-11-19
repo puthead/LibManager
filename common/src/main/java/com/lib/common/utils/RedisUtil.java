@@ -1,29 +1,31 @@
-package com.ygz.gateway.controller;
+package com.lib.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lib.common.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
-@RestController
-public class LoginController {
+@Component
+public class RedisUtil {
     @Autowired
     RedisTemplate<String, String> redisTemplate;
 
-    @GetMapping("/login")
-    public String addRedis(){
+    public Boolean AddRedis(String key,Object obj){
         ValueOperations<String, String> valueOperations=redisTemplate.opsForValue();
-        User user=new User().setUId(1).setUName("123");
-        String userString = JSONObject.toJSONString(user);
+        String objStr = JSONObject.toJSONString(obj);
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        valueOperations.set("user:token",userString, Duration.ofHours(2));
-      return "ok";
+        valueOperations.set(key,objStr, Duration.ofHours(2));
+        return true;
+    }
+
+    public String isExistKey(String key){
+        ValueOperations<String, String> valueOperations=redisTemplate.opsForValue();
+        String str = valueOperations.get(key);
+        return str;
     }
 }

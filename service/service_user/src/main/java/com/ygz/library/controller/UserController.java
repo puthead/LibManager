@@ -1,31 +1,52 @@
 package com.ygz.library.controller;
 
-import com.ygz.library.pojo.User;
+import com.lib.common.res.ResponseEntity;
+import com.lib.common.utils.RedisUtil;
+import com.lib.common.model.User;
 import com.ygz.library.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-
+    @Autowired
+    RedisTemplate redisTemplate;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Autowired
     private UserService userService;
 
     //全查
     @GetMapping("queryAll")
-    public List<User> queryAll(){
+    public ResponseEntity queryAll(@RequestHeader Map<String, String> headers){
+        System.out.println(headers.get("token"));
         List<User> list = userService.list();
-        return list;
+        return ResponseEntity.success(200,list);
     }
 
+   @PostMapping("login")
+   public ResponseEntity login(String uname,String upassword){
+        log.debug("user:{},{}",uname,upassword);
+        String key="pc-"+ UUID.randomUUID().toString().replace("-","");
+        Boolean flag=userService.getUserByUName(uname,upassword);
+        User user=new User().setUName(uname);
+        if (flag) {
+            redisUtil.AddRedis(key, user);
+            return ResponseEntity.success(200,key);
+        }
+        return ResponseEntity.success(400);
+   }
 
     @GetMapping("test")
     public String test(){
