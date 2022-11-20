@@ -100,15 +100,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public Boolean getUserByUName(String uName,String uPassword) {
+    public Integer getCountByUName(String uName) {
         QueryWrapper queryWrapper =new QueryWrapper();
         queryWrapper.eq("username",uName);
-        queryWrapper.eq("password",uPassword);
         Long count=mapper.selectCount(queryWrapper);
         System.out.println(count);
-        if (count == 1L){
-            return true;
-        }
-        return false;
+        return Math.toIntExact(count);
+    }
+
+    @Override
+    public User getUserByUName(String uName) {
+        QueryWrapper queryWrapper =new QueryWrapper();
+        queryWrapper.eq("username",uName);
+        User user=mapper.selectOne(queryWrapper);
+        return user;
     }
 }

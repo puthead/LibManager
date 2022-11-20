@@ -10,6 +10,7 @@ import com.ygz.library.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -43,21 +44,29 @@ public class UserController {
    @PostMapping("login")
    public ResultJson login(@RequestBody User user){
         log.debug("user:",user);
+        String password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         String key="pc-"+ UUID.randomUUID().toString().replace("-","");
-        Boolean flag=userService.getUserByUName(user.getUsername(),user.getPassword());
-        user.setPassword(null).setToken(key);
+        Integer num=userService.getCountByUName(user.getUsername());
+        if (num==0){
+            return new ResultJson().setMeta(new Meta().setStatus(Meta.INTERNAL_SERVER_ERROR).setMsg("用户不存在"));
+        }
+       User user1=userService.getUserByUName(user.getUsername());
+        Boolean flag = password.equals(user1.getPassword());
         if (flag) {
-            redisUtil.AddRedis(key, user);
-            System.out.println(user);
+            user1.setPassword(null).setToken(key);
+            redisUtil.AddRedis(key, user1);
+            System.out.println(user1);
 
-            return new ResultJson().setMeta(new Meta().setStatus(Meta.OK).setMsg("登录成功")).setData(user);
+            return new ResultJson().setMeta(new Meta().setStatus(Meta.OK).setMsg("登录成功")).setData(user1);
         }
         return new ResultJson().setMeta(new Meta().setStatus(Meta.INTERNAL_SERVER_ERROR).setMsg("登录失败"));
    }
 
+
     @GetMapping("test")
     public String test(){
-        return "list";
+        String str=  DigestUtils.md5DigestAsHex("123456".getBytes());
+        return str;
     }
 
     @RequestMapping("delete")

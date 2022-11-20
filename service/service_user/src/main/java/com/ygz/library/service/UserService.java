@@ -28,5 +28,7 @@ public interface UserService extends IService<User> {
 
     List<User> queryObject(User obj);
 
-    Boolean getUserByUName(String uName,String uPassword);
+    Integer getCountByUName(String uName);
+
+    User getUserByUName(String uName);
 }

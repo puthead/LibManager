@@ -10,6 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>service_user</module>
+        <module>service_book</module>
+        <module>service_reader</module>
+<!--        <module>service_base</module>-->
     </modules>
 
     <artifactId>service</artifactId>
