@@ -11,10 +11,9 @@
       <el-form-item prop="password">
         <svg-icon icon="password" class="svg-container"></svg-icon>
         <el-input v-model="form.password" :type="passwordType"></el-input>
-        <svg-icon
-          :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
-          @click="changeType"
-        ></svg-icon>
+        <svg-iconz :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+          @click="changeType">
+        </svg-iconz>
       </el-form-item>
       <el-button type="primary" class="login-button" @click="handleLogin">{{
         $t('login.btnTitle')
@@ -28,8 +27,8 @@ import { ref } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 const form = ref({
-  username: 'admin',
-  password: '123456'
+  username: '',
+  password: ''
 })
 
 const rules = ref({

@@ -8,6 +8,8 @@
 		<module>service</module>
 		<module>service/service_user</module>
 		<module>service/service_book</module>
+		<module>service/service_reader</module>
+		<module>service/service_base</module>
 		<module>Eureka</module>
 		<module>Gateway</module>
 	</modules>
@@ -143,13 +145,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+
 
 </project>
