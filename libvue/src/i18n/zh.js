@@ -10,6 +10,7 @@ export default {
     categories: '商品分类',
     orders: '订单列表',
     reports: '数据报表'
+    // userManager:'用户管理'
   },
   login: {
     title: '用户登录',

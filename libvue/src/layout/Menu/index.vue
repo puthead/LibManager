@@ -30,7 +30,8 @@
           <el-icon>
             <component :is="icon"></component>
           </el-icon>
-          <span>{{ $t(`menus.${it.path}`) }}</span>
+<!--          <span>{{ $t(`menus.${it.path}`) }}</span>-->
+          <span>{{ it.authName }}</span>
         </template>
       </el-menu-item>
     </el-sub-menu>

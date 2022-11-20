@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@TableName("permissiom")
+@TableName("permission")
 @Accessors(chain = true)
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -17,6 +17,9 @@ public class Permission implements Serializable {
     private int id;
     private String authName;
     private String path;
+    private int parent;
+    private int type;
+    private int orderRank;
 
     @TableField (exist = false)
     private List<Permission> children;
