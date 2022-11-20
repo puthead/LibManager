@@ -8,18 +8,18 @@ const routes = [
   },
   {
     path: '/',
-    name: '/',
+    name: '首页',
     component: () => import('../layout'),
-    redirect: '/users',
+    redirect: '/index',
     children: [
       {
-        path: 'users',
-        name: 'users',
-        component: () => import('@/views/users/index.vue')
+        path: 'index',
+        name: '主页',
+        component: () => import('@/views/index/index.vue')
       },
       {
         path: 'userManager',
-        name: 'categories',
+        name: '用户管理',
         component: () => import('@/views/categories/index.vue')
       },
       {
