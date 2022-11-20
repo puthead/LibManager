@@ -1,20 +1,18 @@
 package com.ygz.library.controller;
 
+import com.lib.common.model.Permission;
+import com.lib.common.model.User;
 import com.lib.common.res.Meta;
 import com.lib.common.res.ResponseEntity;
 import com.lib.common.res.ResultJson;
 import com.lib.common.utils.RedisUtil;
-import com.lib.common.model.User;
 import com.ygz.library.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -95,5 +93,24 @@ public class UserController {
         // System.out.println(map);
         return map;
 
+    }
+
+    @GetMapping("/menus")
+    public ResultJson Menu(){
+        Permission permission1 = new Permission()
+                .setId(104)
+                .setAuthName("list")
+                .setPath("user");
+        List<Permission> list1 =new ArrayList<>();
+        list1.add(permission1);
+        Permission permission =new Permission()
+                .setId(101)
+                .setAuthName("Manager")
+                .setChildren(list1)
+                .setPath("user");
+        List<Permission> list =new ArrayList<>();
+        list.add(permission);
+        list.add(permission);
+        return new ResultJson().setMeta(new Meta().setStatus(200).setMsg("获取菜单列表成功")).setData(list);
     }
 }

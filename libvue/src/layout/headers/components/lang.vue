@@ -1,6 +1,6 @@
 <template>
   <el-dropdown @command="handleCommand">
-    <svg-icon icon="language"></svg-icon>
+<!--    <svg-icon icon="language"></svg-icon>-->
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item command="zh" :disabled="currentLanguage === 'zh'"
