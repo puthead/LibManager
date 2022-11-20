@@ -1,6 +1,6 @@
 <template>
   <div id="guide" @click.prevent.stop="handleGuide">
-    <svg-icon icon="guide"></svg-icon>
+<!--    <svg-icon icon="guide"></svg-icon>-->
   </div>
 </template>
 

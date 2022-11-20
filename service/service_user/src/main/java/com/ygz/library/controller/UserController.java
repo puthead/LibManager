@@ -1,6 +1,8 @@
 package com.ygz.library.controller;
 
+import com.lib.common.res.Meta;
 import com.lib.common.res.ResponseEntity;
+import com.lib.common.res.ResultJson;
 import com.lib.common.utils.RedisUtil;
 import com.lib.common.model.User;
 import com.ygz.library.service.UserService;
@@ -41,15 +43,18 @@ public class UserController {
     }
 
    @PostMapping("login")
-   public ResponseEntity login(@RequestBody User user){
+   public ResultJson login(@RequestBody User user){
         log.debug("user:",user);
         String key="pc-"+ UUID.randomUUID().toString().replace("-","");
-        Boolean flag=userService.getUserByUName(user.getUName(),user.getUPassword());
+        Boolean flag=userService.getUserByUName(user.getUsername(),user.getPassword());
+        user.setPassword(null).setToken(key);
         if (flag) {
             redisUtil.AddRedis(key, user);
-            return ResponseEntity.success(200,key);
+            System.out.println(user);
+
+            return new ResultJson().setMeta(new Meta().setStatus(Meta.OK).setMsg("登录成功")).setData(user);
         }
-        return ResponseEntity.success(400);
+        return new ResultJson().setMeta(new Meta().setStatus(Meta.INTERNAL_SERVER_ERROR).setMsg("登录失败"));
    }
 
     @GetMapping("test")

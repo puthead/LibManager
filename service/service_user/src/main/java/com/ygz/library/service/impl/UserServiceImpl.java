@@ -92,8 +92,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     public List<User> queryObject(User obj) {           //通过对象查找  暂时无法使用
         Map<String, Object> map = new HashMap<>();
         map.put("u_id", obj.getUId());
-        map.put("u_name", obj.getUName());
-        map.put("u_password", obj.getUPassword());
+        map.put("u_name", obj.getUsername());
+        map.put("u_password", obj.getPassword());
         System.out.println("-------------------------");
         System.out.println(map);
         return mapper.selectByMap(map);
@@ -102,8 +102,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Override
     public Boolean getUserByUName(String uName,String uPassword) {
         QueryWrapper queryWrapper =new QueryWrapper();
-        queryWrapper.eq("u_name",uName);
-        queryWrapper.eq("u_password",uPassword);
+        queryWrapper.eq("username",uName);
+        queryWrapper.eq("password",uPassword);
         Long count=mapper.selectCount(queryWrapper);
         System.out.println(count);
         if (count == 1L){

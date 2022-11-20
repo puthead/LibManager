@@ -71,7 +71,8 @@ module.exports = {
     hotOnly: false,
     proxy: {
       '/api': {
-        target: 'https://lianghj.top:8888/api/private/v1/',
+        // target: 'https://lianghj.top:8888/api/private/v1/',
+        target: 'http://localhost:9000',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

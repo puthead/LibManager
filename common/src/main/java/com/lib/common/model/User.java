@@ -1,5 +1,6 @@
 package com.lib.common.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,15 +15,17 @@ public class User implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
-	
+
 
 	private int uId;
 
 
-	private String uName;
+	private String username;
 
 
-	private String uPassword;
+	private String password;
 
+	@TableField(exist = false)
+	private String token;
 }
 
