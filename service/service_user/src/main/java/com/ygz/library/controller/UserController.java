@@ -86,6 +86,18 @@ public class UserController {
     }
 
 
+    @RequestMapping("insert")
+    public int insertObject(User obj){
+       int i =  userService.insert(obj);
+        return i;
+    }
+
+    @PostMapping("update")
+    public int updateObject(User obj){
+        int i = userService.update(obj);
+        return i;
+    }
+
     // 分页查询
     @RequestMapping("list")
     public Map<String, Object> list(Integer page) {

@@ -26,7 +26,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public int insert(User obj) {
-        return 0;
+        int i = mapper.insert(obj);
+        return i;
     }
 
     @Override
@@ -37,7 +38,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public int update(User obj) {
-        return 0;
+        int i =mapper.update(obj,null);
+        return i;
     }
 
     @Override
