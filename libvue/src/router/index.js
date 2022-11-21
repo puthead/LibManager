@@ -23,9 +23,9 @@ const routes = [
         component: () => import('@/views/categories/index.vue')
       },
       {
-        path: 'goods',
-        name: 'goods',
-        component: () => import('@/views/goods/index.vue')
+        path: 'dictManager',
+        name: '字典管理',
+        component: () => import('@/views/dict/index.vue')
       },
       {
         path: 'orders',
