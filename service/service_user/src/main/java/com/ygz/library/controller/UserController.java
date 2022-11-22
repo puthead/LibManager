@@ -32,15 +32,16 @@ public class UserController {
 
     //全查
     @GetMapping("queryAll")
-    public ResponseEntity queryAll(@RequestHeader Map<String, String> headers){
-        String str= redisUtil.isExistKey(headers.get("token"));
-        log.debug("status",str);
-        if (str == null){
-            return ResponseEntity.success(600);
-        }
+    public ResultJson queryAll(@RequestHeader Map<String, String> headers){
+//        String str= redisUtil.isExistKey(headers.get(""));
+//        log.debug("status",str);
+//        if (str == null){
+//            return ResponseEntity.success(600);
+//        }
 
         List<User> list = userService.list();
-        return ResponseEntity.success(200,list);
+        list.forEach( li ->{li.setPassword(null);});
+        return new ResultJson().setMeta(new Meta().setStatus(Meta.OK).setMsg("登录成功")).setData(list);
     }
 
    @PostMapping("login")
