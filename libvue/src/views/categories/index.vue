@@ -40,11 +40,18 @@
             </el-table>
               <el-dialog v-model="editVisible" title="EditPage" width="55%" :before-close="handleClose">
                 <div class="common-layout">
-                  <el-container>
+                  <el-container style="padding-left: 80px;margin-bottom: 40px">
 <!--                    <el-header style="background-color: yellowgreen">Header</el-header>-->
-                    <el-container style="background-color: turquoise">
-                      <h1 style="font-size: 20px">Current Username</h1>
-                    </el-container>
+                        <h1 style="font-size: 20px;margin-top: 3px">Current Username: </h1>
+                        <el-input v-model="input1" disabled placeholder="Please input" prop="username" style="left:20px ;width: 200px"/>
+                  </el-container>
+                  <el-container style="padding-left: 80px;margin-bottom: 40px">
+                        <h1 style="font-size: 20px;margin-top: 3px">New Username: </h1>
+                        <el-input v-model="input2"  placeholder="Please input new username" style="left:52px ;width: 200px"/>
+                  </el-container>
+                  <el-container style="padding-left: 80px;margin-bottom: 40px">
+                    <h1 style="font-size: 20px;margin-top: 3px">New Password: </h1>
+                    <el-input v-model="input3" type="password" placeholder="Please input new password" style="left:53px ;width: 200px"/>
                   </el-container>
                 </div>
                 <template #footer>
@@ -71,7 +78,7 @@ import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
 const editVisible = ref(false)
 const handleClose = (done) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
+  ElMessageBox.confirm('真的要关闭此窗口吗？')
     .then(() => {
       done()
     })
@@ -80,10 +87,14 @@ const handleClose = (done) => {
     })
 }
 
+const input1 = ref('')
+const input2 = ref('')
+const input3 = ref('')
 const user = ref([])
 const userInit = async () => {
   user.value = await userList()
 }
+
 userInit()
 </script>
 <style lang="scss" scoped></style>
