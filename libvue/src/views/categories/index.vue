@@ -43,21 +43,21 @@
                   <el-container style="padding-left: 80px;margin-bottom: 40px">
 <!--                    <el-header style="background-color: yellowgreen">Header</el-header>-->
                         <h1 style="font-size: 20px;margin-top: 3px">Current Username: </h1>
-                        <el-input v-model="input1" disabled placeholder="Please input" prop="username" style="left:20px ;width: 200px"/>
+                        <el-input v-model="Username" disabled placeholder="Please input" prop="username" style="left:20px ;width: 200px"/>
                   </el-container>
                   <el-container style="padding-left: 80px;margin-bottom: 40px">
                         <h1 style="font-size: 20px;margin-top: 3px">New Username: </h1>
-                        <el-input v-model="input2"  placeholder="Please input new username" style="left:52px ;width: 200px"/>
+                        <el-input v-model="newUsername"  placeholder="Please input new username" style="left:52px ;width: 200px"/>
                   </el-container>
                   <el-container style="padding-left: 80px;margin-bottom: 40px">
                     <h1 style="font-size: 20px;margin-top: 3px">New Password: </h1>
-                    <el-input v-model="input3" type="password" placeholder="Please input new password" style="left:53px ;width: 200px"/>
+                    <el-input v-model="newPassword" type="password" placeholder="Please input new password" style="left:53px ;width: 200px"/>
                   </el-container>
                 </div>
                 <template #footer>
                 <span class="dialog-footer">
                   <el-button @click="editVisible = false">Cancel</el-button>
-                  <el-button type="primary" @click="editVisible = false">
+                  <el-button id="submit" type="primary" @click="editSubmit">
                     Confirm
                   </el-button>
                 </span>
@@ -72,11 +72,11 @@
 </template>
 
 <script  setup>
-import { userList } from '@/api/user'
-// import { userEdit} from "@/api/user";
+import { userEdit, userList } from '@/api/user'
+// import { userQuery } from '@/api/user'
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
-import axios from 'axios'
+
 const editVisible = ref(false)
 const handleClose = (done) => {
   ElMessageBox.confirm('真的要关闭此窗口吗？')
@@ -88,26 +88,22 @@ const handleClose = (done) => {
     })
 }
 
-const input1 = ref('')
-const input2 = ref('')
-const input3 = ref('')
+const Username = ref('')
+const data = ref({
+  newUsername: '',
+  newPassword: '',
+  uid: ''
+})
 const user = ref([])
 const userInit = async () => {
   user.value = await userList()
 }
 userInit()
-axios.get('http://localhost:9000/user/update', {
-    params: {
-    uId: 7,
-    username: 7,
-    password: 8
+
+const editSubmit = async () => {
+  userEdit(data)
+  console.log(data)
 }
-})
-.then(function (res) {
-  console.log(res)
-})
-  .catch(function (err) {
-    console.log(err)
-  })
+
 </script>
 <style lang="scss" scoped></style>

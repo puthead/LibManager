@@ -5,8 +5,14 @@ export const userList = () => {
     url: '/user/queryAll'
   })
 }
-export const userEdit = () => {
+export const userEdit = (data) => {
   return request({
-    url: '/user/update'
+    url: '/user/update',
+    data
+  })
+}
+export const userQuery = (uId) => {
+  return request({
+    url: '/user/queryObject'
   })
 }
