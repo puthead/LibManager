@@ -76,6 +76,7 @@ import { userList } from '@/api/user'
 // import { userEdit} from "@/api/user";
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
+import axios from 'axios'
 const editVisible = ref(false)
 const handleClose = (done) => {
   ElMessageBox.confirm('真的要关闭此窗口吗？')
@@ -95,6 +96,18 @@ const userInit = async () => {
   user.value = await userList()
 }
 userInit()
-
+axios.get('http://localhost:9000/user/update', {
+    params: {
+    uId: 7,
+    username: 7,
+    password: 8
+}
+})
+.then(function (res) {
+  console.log(res)
+})
+  .catch(function (err) {
+    console.log(err)
+  })
 </script>
 <style lang="scss" scoped></style>
