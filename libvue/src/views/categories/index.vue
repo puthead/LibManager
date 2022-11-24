@@ -94,7 +94,7 @@ const user = ref([])
 const userInit = async () => {
   user.value = await userList()
 }
-
 userInit()
+
 </script>
 <style lang="scss" scoped></style>

@@ -14,6 +14,8 @@ public interface UserService extends IService<User> {
 
     int update(User obj);
 
+    int updateUser(String username,String password,int id);
+
     User queryObject(int id);
 
     int queryCount();

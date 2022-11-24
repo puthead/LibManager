@@ -93,10 +93,9 @@ public class UserController {
         return i;
     }
 
-    @PostMapping("update")
-    public int updateObject(User obj){
-        int i = userService.update(obj);
-        return i;
+    @RequestMapping ("update")
+    public int updateObject(String username,String password,int uId){
+        return userService.updateUser(username,password,uId);
     }
 
     // 分页查询

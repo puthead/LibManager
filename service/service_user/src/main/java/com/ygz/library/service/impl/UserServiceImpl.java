@@ -43,6 +43,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
+    public int updateUser(String username, String password,int uId) {
+        try {
+            return mapper.updateUser(username,password,uId);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    @Override
     public User queryObject(int uId) {
         try {
             return mapper.queryObject(uId);
