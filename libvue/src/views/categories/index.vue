@@ -33,7 +33,6 @@
               <el-table-column prop="username" label="Username" />
               <el-table-column label="Edit" >
                 <Edit @click="editVisible = true" style="width: 4em; height: 1em; margin-right: 8px" />
-<!--                <el-button type="default" @click="editVisible = true">查询</el-button>-->
 
                 <Delete @click="delUser" style="width: 4em; height: 1em; margin-right: 8px" />
               </el-table-column>
@@ -72,7 +71,7 @@
 </template>
 
 <script  setup>
-import { userEdit, userList } from '@/api/user'
+import { userList } from '@/api/user'
 // import { userQuery } from '@/api/user'
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
@@ -89,11 +88,13 @@ const handleClose = (done) => {
 }
 
 const Username = ref('')
-const data = ref({
-  newUsername: '',
-  newPassword: '',
-  uid: ''
-})
+const newUsername = ref('')
+const newPassword = ref('')
+// const data = ref({
+//   newUsername: this.newUsername,
+//   newPassword: this.newPassword
+//   // uid: ''
+// })
 const user = ref([])
 const userInit = async () => {
   user.value = await userList()
@@ -101,8 +102,8 @@ const userInit = async () => {
 userInit()
 
 const editSubmit = async () => {
-  userEdit(data)
-  console.log(data)
+  // userEdit(data)
+  console.log(newUsername)
 }
 
 </script>
