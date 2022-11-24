@@ -28,19 +28,15 @@
       </el-header>
       <el-main>
           <div style="border: 2px solid rgb(205, 202, 209);border-radius: 15px;padding:10px 40px; ">
-            <el-table :data="user" style="width: 100%">
-              <el-table-column prop="uid" label="ID" />
-              <el-table-column prop="username" label="Username" />
-              <el-table-column label="Edit" >
-                <Edit @click="editVisible = true" style="width: 4em; height: 1em; margin-right: 8px" />
-
-                <Delete @click="delUser" style="width: 4em; height: 1em; margin-right: 8px" />
-              </el-table-column>
-            </el-table>
+              <table>
+                <thead><th>ID</th><th>UserName</th><th>EDIT</th></thead>
+                <tbody>
+                <tr v-for="item in user" :key="item.uid"><td>{{item.uid}}</td><td>{{item.username}}</td><Edit @click="editVisible = true;editSubmit('{{item.uid}}','{{item.username}}')" style="width: 4em; height: 1em; margin-right: 8px" /></tr>
+                </tbody>
+              </table>
               <el-dialog v-model="editVisible" title="EditPage" width="55%" :before-close="handleClose">
                 <div class="common-layout">
                   <el-container style="padding-left: 80px;margin-bottom: 40px">
-<!--                    <el-header style="background-color: yellowgreen">Header</el-header>-->
                         <h1 style="font-size: 20px;margin-top: 3px">Current Username: </h1>
                         <el-input v-model="Username" disabled placeholder="Please input" prop="username" style="left:20px ;width: 200px"/>
                   </el-container>
@@ -87,24 +83,22 @@ const handleClose = (done) => {
     })
 }
 
+function editSubmit(uid, username) {
+  console.log(uid, username)
+}
 const Username = ref('')
 const newUsername = ref('')
 const newPassword = ref('')
 // const data = ref({
-//   newUsername: this.newUsername,
-//   newPassword: this.newPassword
-//   // uid: ''
+//   newUsername: '',
+//   newPassword: '',
+//   uid: 7
 // })
 const user = ref([])
 const userInit = async () => {
   user.value = await userList()
 }
 userInit()
-
-const editSubmit = async () => {
-  // userEdit(data)
-  console.log(newUsername)
-}
 
 </script>
 <style lang="scss" scoped></style>
