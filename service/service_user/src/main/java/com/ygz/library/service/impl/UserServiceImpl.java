@@ -67,7 +67,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public int queryCount() {
-        return 0;
+        try {
+            return mapper.queryCount();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
@@ -77,19 +83,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public List<User> queryPage(int offset, int size) {
-        // 构造条件
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-
-        //
-        Page<User> User_page = new Page<>(offset, size);
-
-        Page<User> pageParam = mapper.selectPage(User_page, queryWrapper);
-
-        // pageParam.getCurrent(); 查询当前页
-        // pageParam.getPages(); 查询总页数
-        // pageParam.getTotal();查询记录数
-
-        return pageParam.getRecords();
+        try {
+            Map<String, Integer> map = new HashMap<>();
+            map.put("offset", offset);
+            map.put("size", size);
+            return mapper.queryPage(map);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

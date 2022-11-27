@@ -101,7 +101,7 @@ public class UserController {
     // 分页查询
     @RequestMapping("list")
     public Map<String, Object> list(Integer page) {
-        int size = 3;
+        int size = 10;
         int currentPage = page;
         int offset = (page - 1) * size;
         int count = userService.queryCount();

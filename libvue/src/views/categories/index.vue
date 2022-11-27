@@ -24,7 +24,7 @@
   <div id="alldiv" class="common-layout">
     <el-container>
       <el-header style="padding: 20px">
-        <h3>header</h3>
+        <h3>用户管理</h3>
       </el-header>
       <el-main>
           <div style="border: 2px solid rgb(205, 202, 209);border-radius: 15px;padding:10px 40px; ">
@@ -53,31 +53,27 @@
                 <span class="dialog-footer">
                   <el-button @click="editVisible = false">Cancel</el-button>
                   <el-button id="submit" type="primary" @click="editSubmit;test(newUsername,newPassword,Username)">
-                    Confirm
+                    Submit
                   </el-button>
                 </span>
                 </template>
               </el-dialog>
-            <el-pagination background layout="prev, pager, next" :total="1000" style="text-align:center;"/>
+            <el-pagination background layout="prev, pager, next" :total="100" style="text-align:center;"/> <!--翻页框-->
           </div>
       </el-main>
     </el-container>
   </div>
-<div id ="test">
-<!--  <button @click=""></button>-->
-</div>
 </template>
 
 <script  setup>
-import { userList } from '@/api/user'
-// import { userQuery } from '@/api/user'
+// import { userList } from '@/api/user'
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
 import axios from 'axios'
-// import { createApp } from 'vue'
 
 var id = 0
 var name = ''
+var currentPage = 1
 
 const editVisible = ref(false)
 const handleClose = (done) => {
@@ -89,21 +85,7 @@ const handleClose = (done) => {
       // catch error
     })
 }
-// const app = createApp({
-//   data: {
-//     Uname: name
-//   },
-//   methods: {
-//   editSubmit:function(uid, username) {
-//             console.log(uid, username)
-//             id = uid
-//             name = username
-//             console.log('id=' + id + '; name=' + name)
-//             Username.value = name
-//             console.log('Username.value: ' + Username.value)
-//             }
-//   }
-// }).mount("#test")
+
 function editSubmit(uid, username) {
   setTimeout(function () {
     console.log(uid, username)
@@ -112,28 +94,51 @@ function editSubmit(uid, username) {
     console.log('id=' + id + '; name=' + name)
     Username.value = name
     console.log('Username.value: ' + Username.value)
-    document.getElementById('UsernameId').value = Username.value
+    document.getElementById('UsernameId').value = Username.value/* js选择器 */
     document.getElementById('newUsernameId').value = ''
     document.getElementById('newPasswordId').value = ''
-  }, 100)
+  }, 100)/* 延时100毫秒执行 */
 }
 function test(newUsername, newPassword, Username) {
   console.log('newUsername:' + newUsername + '; newPassword:' + newPassword + '; username:' + Username.value)
   console.log(name)
-  axios.get('http://localhost:9000/user/update', {
-    params: {
-      username: newUsername,
-      password: newPassword,
-      uId: id
-    }
-  })
-    .then(function (response) {
-      console.log(response)
+  if (document.getElementById('newUsernameId').value !== '' & document.getElementById('newPasswordId').value !== '') { /* 用户名或密码不为空时执行updata */
+    axios.get('http://localhost:9000/user/update', {
+      params: {
+        username: newUsername,
+        password: newPassword,
+        uId: id
+      }
     })
-    .catch(function (error) {
-      console.log(error)
-    })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+      editVisible.value = false
+  } else {
+    alert('用户名或密码禁止为空！')
+  }
 }
+document.getElementsByClassName('number').onclick = function () {
+  currentPage = document.getElementsByClassName(this).html()
+  console.log('currentPage:  ' + currentPage)
+}
+
+axios.get('http://localhost:9000/user/list', {
+  params: {
+    page: currentPage
+  }
+})
+  .then(function (response) {
+    console.log('返回数据' + response.data)
+    user.value = response.data.list
+    console.log(response)
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 const Username = {
   value: name
 }
@@ -142,7 +147,7 @@ const newPassword = ref('')
 
 const user = ref([])
 const userInit = async () => {
-  user.value = await userList()
+  // user.value = await userList()
 }
 userInit()
 
