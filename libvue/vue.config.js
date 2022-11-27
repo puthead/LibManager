@@ -92,3 +92,28 @@ module.exports = {
     }
   }
 }
+
+const webpack = require('webpack')
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'windows.jQuery': 'jquery'
+      })
+    ]
+  }
+}
+
+// //关闭语法检查
+// module.exports = {
+//   // 关闭eslint校验
+//   devServer: {
+//     overlay: {
+//       warnings: true,
+//       errors: true
+//     }
+//   },
+//   lintOnSave: false
+// }

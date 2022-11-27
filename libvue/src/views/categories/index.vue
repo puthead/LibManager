@@ -58,18 +58,19 @@
                 </span>
                 </template>
               </el-dialog>
+            <button class="number" id="321">123</button>
             <el-pagination background layout="prev, pager, next" :total="100" style="text-align:center;"/> <!--翻页框-->
           </div>
       </el-main>
     </el-container>
   </div>
 </template>
-
 <script  setup>
 // import { userList } from '@/api/user'
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
 import axios from 'axios'
+import $ from 'jquery'
 
 var id = 0
 var name = ''
@@ -121,10 +122,23 @@ function test(newUsername, newPassword, Username) {
     alert('用户名或密码禁止为空！')
   }
 }
-document.getElementsByClassName('number').onclick = function () {
-  currentPage = document.getElementsByClassName(this).html()
-  console.log('currentPage:  ' + currentPage)
-}
+console.log('------------------------------------------------')
+console.log(document.getElementsByClassName('number'))
+setTimeout(function () {
+  console.log(console.log(document.getElementsByClassName('number')))
+}, 1000)
+$('.el-pager').on('click', '.number', function () {
+  console.log(123321)
+})
+$('#321').on('click', function () {
+  console.log('123456')
+})
+
+setTimeout(function () {
+  document.getElementById('#321').onclick = function () {
+      console.log('123456')
+  }
+}, 1000)
 
 axios.get('http://localhost:9000/user/list', {
   params: {
